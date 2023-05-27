@@ -5,6 +5,7 @@ const jwt = require("jsonwebtoken");
 const userRoles = require("../constants/constants");
 const Book = require("../models/Book");
 const asyncHandler = require("express-async-handler");
+const JWT_SECRET = "loko123";
 
 // Step 3: Implement user registration
 const registerUser = async (req, res) => {
@@ -74,7 +75,7 @@ const loginUser = async (req, res) => {
 
     // Generate and send the access token
     const tokenPayload = { userId: user._id, role };
-    const token = jwt.sign(tokenPayload, process.env.JWT_SECRET, {
+    const token = jwt.sign(tokenPayload, JWT_SECRET, {
       expiresIn: "1h",
     });
 

@@ -3,6 +3,7 @@
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
 const asyncHandler = require("express-async-handler");
+const JWT_SECRET = "loko123";
 
 // Middleware to check user role
 const requireRole = (role) => {
@@ -23,7 +24,7 @@ const validateToken = asyncHandler(async (req, res, next) => {
   if (authHeader && authHeader.startsWith("Bearer ")) {
     token = authHeader.substring(7);
     try {
-      const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
+      const decodedToken = jwt.verify(token, JWT_SECRET);
       const { userId, role } = decodedToken;
       req.user = { userId, role };
       next();
