@@ -4,7 +4,6 @@ const { requireRole, validateToken } = require("../middleware/auth");
 const {
   registerUser,
   loginUser,
-  getBooks,
   currentUser,
 } = require("../controllers/userController");
 // const requireLibrarianRole = require("../middleware/role");

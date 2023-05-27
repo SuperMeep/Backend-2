@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Book = require("../models/Book");
 const fuzzball = require("fuzzball");
-const genre = require("../constants/constants");
+const { userRoles, genre } = require("../constants/constants");
 
 // filter books
 const getBooks = async (req, res) => {
@@ -92,47 +92,75 @@ const createBook = async (req, res) => {
   }
 };
 
-// GENREEE
+// // GENREEE
 
-// genre group
+// // genre group
 
-const getBooksByGroup = async (req, res) => {
-  const { group } = req.params;
+// const getBooksByGroup = async (req, res) => {
+//   const { group } = req.params;
 
+//   try {
+//     const books = await Book.find({ "genre.genreGroup": group });
+//     res.json(books);
+//   } catch (error) {
+//     res.status(500).json({ error: "Failed to fetch books" });
+//   }
+// };
+
+// // genre name
+// // genre name
+// // genre name
+// const getBooksByGenreName = async (req, res) => {
+//   const { genreName } = req.params;
+
+//   try {
+//     const books = await Book.find({ "genre.genreName": genreName });
+//     res.json(books);
+//   } catch (error) {
+//     res.status(500).json({ error: "Failed to fetch books" });
+//   }
+// };
+
+// // Get books by genre group and genre name
+// const getBooksByGroupAndName = async (req, res) => {
+//   const { genreGroup, genreName } = req.params;
+
+//   try {
+//     const books = await Book.find({
+//       "genre.genreGroup": genreGroup,
+//       "genre.genreName": genreName,
+//     });
+//     res.json(books);
+//   } catch (error) {
+//     res.status(500).json({ error: "Failed to fetch books" });
+//   }
+// };
+
+// Delete a book by ID
+const deleteBook = async (req, res) => {
   try {
-    const books = await Book.find({ "genre.genreGroup": group });
-    res.json(books);
+    const book = await Book.findByIdAndDelete(req.params.id);
+    if (!book) {
+      return res.status(404).json({ error: "Book not found" });
+    }
+    res.status(200).json({ message: "Book deleted successfully" });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch books" });
+    res.status(500).json({ error: error.message });
   }
 };
 
-// genre name
-// genre name
-// genre name
-const getBooksByGenreName = async (req, res) => {
-  const { genreName } = req.params;
-
+// Update a book by ID
+const updateBook = async (req, res) => {
   try {
-    const books = await Book.find({ "genre.genreName": genreName });
-    res.json(books);
-  } catch (error) {
-    res.status(500).json({ error: "Failed to fetch books" });
-  }
-};
-
-// Get books by genre group and genre name
-const getBooksByGroupAndName = async (req, res) => {
-  const { genreGroup, genreName } = req.params;
-
-  try {
-    const books = await Book.find({
-      "genre.genreGroup": genreGroup,
-      "genre.genreName": genreName,
+    const book = await Book.findByIdAndUpdate(req.params.id, req.body, {
+      new: true,
     });
-    res.json(books);
+    if (!book) {
+      return res.status(404).json({ error: "Book not found" });
+    }
+    res.status(200).json({ message: "Book updated successfully", book });
   } catch (error) {
-    res.status(500).json({ error: "Failed to fetch books" });
+    res.status(500).json({ error: error.message });
   }
 };
 
@@ -141,7 +169,6 @@ module.exports = {
   getAllBooks,
   getBookById,
   createBook,
-  getBooksByGroup,
-  getBooksByGenreName,
-  getBooksByGroupAndName,
+  updateBook,
+  deleteBook,
 };

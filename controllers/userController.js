@@ -2,7 +2,7 @@
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const userRoles = require("../constants/constants");
+const { userRoles, genre } = require("../constants/constants");
 const Book = require("../models/Book");
 const asyncHandler = require("express-async-handler");
 const JWT_SECRET = "loko123";

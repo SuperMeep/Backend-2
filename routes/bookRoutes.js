@@ -19,14 +19,10 @@ router.post(
   bookController.createBook
 );
 
-// Genre
+// DELETE /api/books/:id - Delete a book by ID
+router.delete("/books/:id", bookController.deleteBook);
 
-router.get("/books/genre/:group", bookController.getBooksByGroup);
-router.get("/books/genre/name/:genreName", bookController.getBooksByGenreName);
-
-router.get(
-  "/books/genre/:genreGroup/:genreName",
-  bookController.getBooksByGroupAndName
-);
+// PUT /api/books/:id - Update a book by ID
+router.put("/books/:id", bookController.updateBook);
 
 module.exports = router;
