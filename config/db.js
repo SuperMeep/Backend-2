@@ -2,7 +2,9 @@ const mongoose = require("mongoose");
 
 const connectDb = async () => {
   try {
-    const connect = await mongoose.connect(process.env.CONNECTION_STRING);
+    const connect = await mongoose.connect(
+      "mongodb+srv://lokomoko2:uvcOqfNk4p84uf6N@cluster0.t3ofapx.mongodb.net/mycontacts-backend?retryWrites=true&w=majority"
+    );
     console.log(
       "Database connected: ",
       connect.connection.host,
