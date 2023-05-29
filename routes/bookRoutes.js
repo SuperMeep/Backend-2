@@ -20,9 +20,19 @@ router.post(
 );
 
 // DELETE /api/books/:id - Delete a book by ID
-router.delete("/books/:id", bookController.deleteBook);
+router.delete(
+  "/books/:id",
+  validateToken,
+  requireRole("librarian"),
+  bookController.deleteBook
+);
 
 // PUT /api/books/:id - Update a book by ID
-router.put("/books/:id", bookController.updateBook);
+router.put(
+  "/books/:id",
+  validateToken,
+  requireRole("librarian"),
+  bookController.updateBook
+);
 
 module.exports = router;
