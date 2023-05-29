@@ -5,7 +5,7 @@ const bookRoutes = require("./routes/bookRoutes");
 const connectDb = require("./config/db");
 const app = express();
 
-const port = 10000;
+const port = 9000;
 
 // Middleware
 app.use(express.json()); // Add this line for JSON body parsing
